@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Разбор боёв «Повесть о конце света»</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #f2efe9;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            padding: 2rem 1rem;
+            line-height: 1.7;
+            color: #1e1e1e;
+        }
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 2.5rem 2.2rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.07);
+        }
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            margin-bottom: 0.25rem;
+            color: #1a1a2e;
+        }
+        .subhead {
+            color: #5a5a7a;
+            border-left: 4px solid #c9b8a8;
+            padding-left: 1.2rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+        h2 {
+            font-size: 1.7rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 0.8rem;
+            border-bottom: 3px solid #e0d6cc;
+            padding-bottom: 0.3rem;
+            color: #2d2d44;
+        }
+        p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+        .blockquote {
+            background: #f3f0eb;
+            padding: 1.2rem 1.8rem;
+            border-radius: 14px;
+            margin: 1.5rem 0;
+            border-left: 5px solid #b8a99a;
+            font-style: italic;
+        }
+        .fight-card {
+            background: #fcfaf8;
+            border: 1px solid #e9e2da;
+            border-radius: 18px;
+            padding: 1.8rem 1.8rem 1.2rem;
+            margin: 2.2rem 0;
+            transition: background 0.15s;
+        }
+        .fight-card:hover {
+            background: #faf7f2;
+        }
+        .fight-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            color: #1f1f3a;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.5rem;
+        }
+        .fight-number {
+            background: #d9d0c6;
+            padding: 0.1rem 1rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #2d2d44;
+        }
+        /* === ИЗМЕНЕНИЯ: Обрезка низа картинки === */
+        .fight-image-placeholder {
+            background: #1a1a2e;
+            border-radius: 16px;
+            height: auto;
+            max-height: 400px; /* ← Можете увеличить или уменьшить это число */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem 0 1.2rem 0;
+            border: 2px dashed #b8a99a;
+            overflow: hidden;
+            transition: background 0.2s;
+        }
+        .fight-image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;        /* Заполняет блок без пустых полей */
+            object-position: top center; /* ПРИЖИМАЕТ К ВЕРХУ, обрезает только низ */
+            border-radius: 14px;
+        }
+        /* ====================================== */
+        .fight-image-placeholder:hover {
+            background: #2a2a44;
+        }
+        .score-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.4rem 1.5rem;
+            background: #f4f0eb;
+            padding: 0.8rem 1.2rem;
+            border-radius: 14px;
+            margin: 0.8rem 0 1rem;
+        }
+        .score-item {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed #d6cbbc;
+            padding: 0.15rem 0;
+        }
+        .score-item:last-child {
+            border-bottom: none;
+        }
+        .score-label {
+            font-weight: 500;
+            color: #4a4a62;
+        }
+        .score-value {
+            font-weight: 600;
+            color: #1f1f3a;
+        }
+        .total-score {
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-align: right;
+            margin-top: 0.6rem;
+            padding-top: 0.5rem;
+            border-top: 2px solid #d6cbbc;
+            color: #1f1f3a;
+        }
+        .highlight {
+            background: #faeedb;
+            padding: 0 0.2rem;
+            border-radius: 4px;
+        }
+        hr {
+            border: none;
+            border-top: 2px dotted #ded5ca;
+            margin: 2.5rem 0;
+        }
+        .footer-note {
+            background: #f3efe9;
+            border-radius: 16px;
+            padding: 1.2rem 1.8rem;
+            margin-top: 2.5rem;
+            font-size: 0.95rem;
+        }
+        @media (max-width: 600px) {
+            .container { padding: 1.5rem 1rem; }
+            h1 { font-size: 1.8rem; }
+            .score-grid { grid-template-columns: 1fr; }
+            .fight-title { font-size: 1.3rem; }
+            .fight-image-placeholder {
+                max-height: 300px; /* На телефонах сделаем чуть ниже */
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h1>⚔️ Разбор боёв «Повести о конце света»</h1>
+    <div class="subhead">
+        Жду пока мой код выполнить обучение модели под названием Случайный лес, потому распишу то, что было на уме в последнее время)
+    </div>
+
+    <!-- Сюжет -->
+    <h2>Сюжет</h2>
+    <p>Боги решили уничтожить человечество, но тут вскрывается правило, что можно устроить рагнарёк, который заключается в 13 поединках типа дуэль, то есть 1 человек против 1 Бога.</p>
+    <p>Как развивается сюжет: сначала бойцы выходят на арену, их представляют, они обмениваются ударами и бац, предыстория одного из героев, потом ещё немного битвы и вновь предыстория, но уже второго бойца, мы понимаем почему и за что они сражаются, а после один умирает, а другой становится победителем поединка, и так 13 раз... (на данный момент, в манге показывают 12 бой из 13).</p>
+    <p>Также, между поединками могут показать героев из будущих поединков, их реакцию на предыдущий бой или что-то подобное, но мне больше нравится когда раскрывают что произойдёт, если человечество уничтожат. Впрочем, могу сказать что все моменты между поединками мне очень нравятся, как в ван писе, когда автор раскрывает что происходит в мире, где когда-то побывали главные герои.</p>
+
+    <h2>Система оценки (0–1 по каждому пункту)</h2>
+    <div class="blockquote">
+        <ul style="list-style: none; padding-left: 0;">
+            <li>👤 <strong>Персонаж Человек</strong> (его история, мотивы, может даже дизайн, но мне почти все дизайны понравились, буду выделять только самые любимые)</li>
+            <li>👾 <strong>Персонаж Бог</strong> (его история, мотивы и то что я написал сверху про человека)</li>
+            <li>⚔️ <strong>Персонаж Валькирии</strong> (По сюжету человек не может ранить Бога, но если человек будет сражаться вместе с Валькирией, то убить Бога сможет, обычно Валькирия просто превращается в оружие, по типу катаны или алебарды, в сюжетном плане это персонажи функции, не очень интересные, но некоторых буду отмечать)</li>
+            <li>💥 <strong>Сама Битва</strong></li>
+            <li>❌ <strong>Момент Х</strong> (Он нам понадобится чуть позже)</li>
+        </ul>
+        <p style="margin-top: 0.5rem;">Также на всякий случай напишу, что не буду спойлерить победителя поединка) наверное. И я буду сильно топить за Богов, их тут сделали интересно, да и ради них и начал читать эту мангу)</p>
+    </div>
+
+    <hr>
+
+    <!-- Бой 1 -->
+    <div class="fight-card">
+        <div class="fight-title"><span class="fight-number">1 Бой</span> Люй Бу (Генерал из историй про Троецарствие) против Тора</div>
+        <div class="fight-image-placeholder">
+            <img src="images/fight13.jpg" alt="Бой 1: Люй Бу против Тора">
+        </div>
+        <p><strong>1.</strong> Ну, в первом бою нам показали просто здоровенного и ловкого бугая человека, который очень хочет драки, не важно с кем, главное с достойным противником! (Ставлю 0,5, мне нравится его предыстория, но если так подумать, в нём мало что интересного)</p>
+        <p><strong>2.</strong> А вот с Тором слегка иначе, его нарисовали ну просто шик, мне очень понравилась его "Японизация" длинные красные волосы и несколько шрамов (или не шрамов а следы от молний, я так и не понял) на лице и теле, он на самом деле тоже хотел сразиться с достойным соперником, как и Люй Бу. (Ему ставлю 0,8, у него предыстория скучновата, рассказали как давным-давно он сражался с великанами и то что они не смогли дать ему нормального боя, но дизайн просто ммм)</p>
+        <p><strong>3.</strong> Валькирия тут миленькая, высокая, сказала всего несколько фраз за сюжет и больше её не показавали, что грустно (0,5)</p>
+        <p><strong>4.</strong> Так как это был первый бой, то я бы назвал его ознакомительным, там не так много событий, но бой считаю интересным, смотреть как Тор вшыряет свой молот классно (я не фанат Тора в этой истории, честно) (1)</p>
+        <p><strong>5.</strong> О, ну тут моя главная претензия к этому бою и тот самый момент Х, так как это не жожо, то автор добавил такую штуку, опишу её так, представьте как 2 копья летят в сторону друг друга и они сталкиваются, после чего одно из копий уничтожает второе и летит дальше (самый яркий момент битва Дио с Джотаро, когда последний ударил в колено) ну так, мне это не нравится, потому тут будет такой балл (-1)</p>
+        <div class="score-grid">
+            <div class="score-item"><span class="score-label">Человек</span><span class="score-value">0,5</span></div>
+            <div class="score-item"><span class="score-label">Бог</span><span class="score-value">0,8</span></div>
+            <div class="score-item"><span class="score-label">Валькирия</span><span class="score-value">0,5</span></div>
+            <div class="score-item"><span class="score-label">Битва</span><span class="score-value">1</span></div>
+            <div class="score-item"><span class="score-label">Момент Х</span><span class="score-value">−1</span></div>
+        </div>
+        <div class="total-score">Итог: 1,8 Для первого поединка неплохо, но можно лучше</div>
+    </div>
+
+    <!-- Бой 2 -->
+    <div class="fight-card">
+        <div class="fight-title"><span class="fight-number">2 Бой</span> Адам (первый человек) против Зевса!</div>
+        <div class="fight-image-placeholder">
+            <img src="images/fight2.jpg" alt="Бой 2: Адам против Зевса">
+        </div>
+        <p><strong>1.</strong> Адам классный, способность интересная (да у некоторых героев среди людей есть способности), история такая, Еву судят за то что она съела яблоко, заходит Адам в зал суда с корзиной яблок и прибожно их сжирает, забирая свою жену, лично мне понравилось как автор показал отношение Адама к Богам, дизайн у него своеобразный, ну то есть его нет, он ходит голым, листик в области паха не в счёт (1)</p>
+        <p><strong>2.</strong> Ух, Зевс необычно выглядит, по факту это дед на стероидах и мне зашло, конечно, его старших братьев показали намного лучше и моложе, как ни странно, но что есть то есть, в предыстории рассказывают как он своего отца избивал (предыстория предсказала весь бой с Адамом)) (0,8)</p>
+        <p><strong>3.</strong> Валькирия тут полторашка, ну и балов ей накину столько же (1,5-1 дизайн библиотекарши ну такое)</p>
+        <p><strong>4.</strong> Бой был интереснее предыдущего, он мне зашёл намного больше, тем более он тут кулачный, за все 12 битв, что я прочитал, чисто кулачных боёв 2 и этот лучший! (1)</p>
+        <p><strong>5.</strong> Я бы мог сказать что тут есть элементы момента Х, но его тут адекватно обыграли, потому штрафа не будет</p>
+        <div class="score-grid">
+            <div class="score-item"><span class="score-label">Человек</span><span class="score-value">1</span></div>
+            <div class="score-item"><span class="score-label">Бог</span><span class="score-value">0,8</span></div>
+            <div class="score-item"><span class="score-label">Валькирия</span><span class="score-value">1,5</span></div>
+            <div class="score-item"><span class="score-label">Битва</span><span class="score-value">1</span></div>
+            <div class="score-item"><span class="score-label">Момент Х</span><span class="score-value">0</span></div>
+        </div>
+        <div class="total-score">Итог: 3,3 (ничего себе как мы скаканули)</div>
+    </div>
+
+    <!-- Бой 3 -->
+    <div class="fight-card">
+        <div class="fight-title"><span class="fight-number">3 Бой</span> Сасаки Кодзиро (это мечник из Японии) против Посейдона!</div>
+        <div class="fight-image-placeholder">
+            <img src="images/fight3.jpg" alt="Бой 3: Сасаки против Посейдона">
+        </div>
+        <p><strong>1.</strong> Мы подошли к моему одному из любимых людей, в этой истории, всё что было с Сасаки мне понравилось, его способность, предыстория о том как он вечно всем проигрывал и учился на своих ошибках, его дизайн, если остальные герои показаны в молодости, так как их лучшая версия была молодой, то Сасаки чисто старец с катаной, безоговорочно (1)</p>
+        <p><strong>2.</strong> Что насчёт Посейдона, среди всех братьев он у меня на последнем месте, его высокомерие выглядит стрёмным и в целом он неприятный, способностей с водой не показал, только трезубцем машет, даже не швырял его в оппонента (а он мог им управлять), предыстория ме, она нужна только для того чтобы показать как он убил своего старшего брата Адамаса, но за его зелёные ботиночки накину балов (0,6)</p>
+        <p><strong>3.</strong> Валькирия тут прикольная, высокая, с шизой, с грудью...перестарались, но мне зашла (0,8)</p>
+        <p><strong>4.</strong> Бой тут больше в тактику и в предугадывании действий противника, а что было в конце, ну просто шик, прям абсолют аниме (1)</p>
+        <p><strong>5.</strong> Тут не было момента Х! (0)</p>
+        <div class="score-grid">
+            <div class="score-item"><span class="score-label">Человек</span><span class="score-value">1</span></div>
+            <div class="score-item"><span class="score-label">Бог</span><span class="score-value">0,6</span></div>
+            <div class="score-item"><span class="score-label">Валькирия</span><span class="score-value">0,8</span></div>
+            <div class="score-item"><span class="score-label">Битва</span><span class="score-value">1</span></div>
+            <div class="score-item"><span class="score-label">Момент Х</span><span class="score-value">0</span></div>
+        </div>
+        <div class="total-score">Итог: 3,6</div>
+    </div>
+
+    <!-- Бой 4 -->
+    <div class="fight-card">
+        <div class="fight-title"><span class="fight-number">4 Бой</span> Джек Потрошитель против Геракла!</div>
+        <div class="fight-image-placeholder">
+            <img src="images/fight4.jpg" alt="Бой 4: Джек против Геракла">
+        </div>
+        <p><strong>1.</strong> Джек неоднозначный, не как в Жожо (да в жожо был Джек Потрошитель) стройный дед, что расставляет ловушки, предыстория неприятная, но норм, его можно назвать гедонистом, живёт ради кайфа, из-за его странной особенности, которую с натяжкой можно назвать способностью (0,5)</p>
+        <p><strong>2.</strong> Геракл мне напомнил Джонатана, здоровенный амбал с здоровенной справедливостью (также в него можно ножи втыкать, прям как в Джонатана), предыстория не о чём, рассказали как он выпил жижи и получил силушку богатырскую (0,5)</p>
+        <p><strong>3.</strong> Валькирия тут сбалмышная полтарашка, что любит бдсм, иначе сказать не могу (0,5)</p>
+        <p><strong>4.</strong> Бой классный и прям по хорошему жожный с "ты думаешь я ничего не предусмотрел?" (1)</p>
+        <p><strong>5.</strong> Тут был момент Х, но он обыгран, и прям очень вкусно, так что (0)</p>
+        <div class="score-grid">
+            <div class="score-item"><span class="score-label">Человек</span><span class="score-value">0,5</span></div>
+            <div class="score-item"><span class="score-label">Бог</span><span class="score-value">0,5</span></div>
+            <div class="score-item"><span class="score-label">Валькирия</span><span class="score-value">0,5</span></div>
+            <div class="score-item"><span class="score-label">Битва</span><span class="score-value">1</span></div>
+            <div class="score-item"><span class="score-label">Момент Х</span><span class="score-value">0</span></div>
+        </div>
+        <div class="total-score">Итог: 2,5</div>
+    </div>
+
+    <!-- Бой 5 -->
+    <div class="fight-card">
+        <div class="fight-title"><span class="fight-number">5 Бой</span> Райден (сумоист) против Шивы (Индийское божество Разрушения с 4 руками)</div>
+        <div class="fight-image-placeholder">
+            <img src="images/fight5.jpg" alt="Бой 5: Райден против Шивы">
+        </div>
+        <p><strong>1.</strong> Райдена представили забавно, в его первое появление он был окружён по меньшей мере 10 вуменами, которые были без ума от его мышц, его даже можно сравнить с Адамом, но гигачадной версией, так как Райден выше Адама в 2 раза (грубо говоря), предыстория ме, мне не особо понравилось (0,6)</p>
+        <p><strong>2.</strong> У Шивы очень прикольный флешбек, где он со своим другом избивал всех сильнейших богов индийского пантеона, прям круто, 4 руки уже необычно, в основном Боги очень похожи на людей, так что эта его важная особенность, а ещё он фиолетовый, как Танос (0,7)</p>
+        <p><strong>3.</strong> Валькирия здесь здоровенная бой баба с большим сердцем (0,6)</p>
+        <p><strong>4.</strong> Бой кулачный, как второй, но понравился он мне меньше, хотя штучки из Сумо прикольные, даже Шива был поражён (0,8)</p>
+        <p><strong>5.</strong> Здесь есть момент Х, потому (-1)</p>
+        <div class="score-grid">
+            <div class="score-item"><span class="score-label">Человек</span><span class="score-value">0,6</span></div>
+            <div class="score-item"><span class="score-label">Бог</span><span class="score-value">0,7</span></div>
+            <div class="score-item"><span class="score-label">Валькирия</span><span class="score-value">0,6</span></div>
+            <div class="score-item"><span class="score-label">Битва</span><span class="score-value">0,8</span></div>
+            <div class="score-item"><span class="score-label">Момент Х</span><span class="score-value">−1</span></div>
+        </div>
+        <div class="total-score">Итог: 1,7</div>
+    </div>
+
+    <!-- Бой 6 -->
+    <div class="fight-card">
+        <div class="fight-title"><span class="fight-number">6 Бой</span> Будда против 7 Богов Удачи!</div>
+        <div class="fight-image-placeholder">
+            <img src="images/fight6.jpg" alt="Бой 6: Будда против 7 Богов">
+        </div>
+        <p><strong>1.</strong> Будда является одним из моих любимых героев, дизайн классный, привычка хавать сладости классная, способность классная, флешбек ну просто ммм, индийская мифология в истории передана хорошо (1)</p>
+        <p><strong>2.</strong> 7 Богов удачи это ложь, на самом деле это Бог счастья Зерофуку, что развалился на 7 и стал жить так, флешбек ме, слёзовыжималка, не интересно, дизайн богов удачи мне понравился, но не дизайн Зерофуку, просто ребёнок) (0,5)</p>
+        <p><strong>3.</strong> Валькирии тут нет (0)</p>
+        <p><strong>4.</strong> Бой прикольный, способность Будды предсказывать будущее ему на руку (1)</p>
+        <p><strong>5.</strong> Тут нет момента Х</p>
+        <div class="score-grid">
+            <div class="score-item"><span class="score-label">Человек</span><span class="score-value">1</span></div>
+            <div class="score-item"><span class="score-label">Бог</span><span class="score-value">0,5</span></div>
+            <div class="score-item"><span class="score-label">Валькирия</span><span class="score-value">0</span></div>
+            <div class="score-item"><span class="score-label">Битва</span><span class="score-value">1</span></div>
+            <div class="score-item"><span class="score-label">Момент Х</span><span class="score-value">0</span></div>
+        </div>
+        <div class="total-score">Итог: 2,5</div>
+    </div>
+
+    <!-- Бой 7 -->
+    <div class="fight-card">
+        <div class="fight-title"><span class="fight-number">7 бой</span> Цин Ши Хуанди (первый правитель объединенного китая) против Аида!</div>
+        <div class="fight-image-placeholder">
+            <img src="images/fight7.jpg" alt="Бой 7: Цинь против Аида">
+        </div>
+        <p><strong>1.</strong> Цин занимает 1 место в топе всех героев у зрителей, мне дизайн и нравится и не нравится одновременно) Способность у него также необычная, как и у других людей, она проявляется в его глазах, типа, он может видеть все основные точки существ, но если он увидит рану, то эта рана отразится на нём (я не знаю, что курил автор, чтобы придумать такой дебафф), также он с помощью воздуха из рта может ослаблять атаки оппонента, надавали ему способностей конечно много.. Предыстория грустная, но не зацепила (0,8)</p>
+        <p><strong>2.</strong> Аид прекрасен, и дизайн, и мотивация (у многих богов в этой истории мотивация это просто ощутить вкус битвы), у него из способностей только кровь, которая делает его и его копье сильнее. (1)</p>
+        <p><strong>3.</strong> Валькирия тут очень похожа на Валькирию Джека Потрошителя, полторашка (1-0,5)</p>
+        <p><strong>4.</strong> Бой хороший и динамичный, в один момент оба хохотали, ну золото (1)</p>
+        <p><strong>5.</strong> ААА здесь есть момент Х! (-1)</p>
+        <div class="score-grid">
+            <div class="score-item"><span class="score-label">Человек</span><span class="score-value">0,8</span></div>
+            <div class="score-item"><span class="score-label">Бог</span><span class="score-value">1</span></div>
+            <div class="score-item"><span class="score-label">Валькирия</span><span class="score-value">1,0 (с учётом уточнения)</span></div>
+            <div class="score-item"><span class="score-label">Битва</span><span class="score-value">1</span></div>
+            <div class="score-item"><span class="score-label">Момент Х</span><span class="score-value">−1</span></div>
+        </div>
+        <div class="total-score">Итог: 2,3</div>
+    </div>
+
+    <!-- Бой 8 -->
+    <div class="fight-card">
+        <div class="fight-title"><span class="fight-number">8 Бой</span> Никола Тесла против Вельзевула!</div>
+        <div class="fight-image-placeholder">
+            <img src="images/fight8.jpg" alt="Бой 8: Тесла против Вельзевула">
+        </div>
+        <p><strong>1.</strong> Ну Тесла здесь гигачадище, эксцентричный, эгоцентричный и сила у него связана с электричеством, до того, как он залез в костюм, он выглядел потрясно а в бою, ну не особо, предыстория пускай и грустная, но интересная (1)</p>
+        <p><strong>2.</strong> Вельзевул неоднозначен, сначала он мне не понравился, но после принял его, наверное его эльфийские ушки портят образ, но в целом прикольно, предыстория интересная и даже связана с глобальным сюжетом (1)</p>
+        <p><strong>3.</strong> Валькирия тут с новым дизайном и высокая, из-за любви к науке её поставили в паре с учёным (1)</p>
+        <p><strong>4.</strong> Бой тоже отличается от других, Тесла вечно пиздит и раскрывает свои способности, а Вельзевул терпит и не убивает его сразу, некоторые моменты хорошие, но если так подумать, то он сумбурный (0,5)</p>
+        <p><strong>5.</strong> Тут нет момента Х (0)</p>
+        <div class="score-grid">
+            <div class="score-item"><span class="score-label">Человек</span><span class="score-value">1</span></div>
+            <div class="score-item"><span class="score-label">Бог</span><span class="score-value">1</span></div>
+            <div class="score-item"><span class="score-label">Валькирия</span><span class="score-value">1</span></div>
+            <div class="score-item"><span class="score-label">Битва</span><span class="score-value">0,5</span></div>
+            <div class="score-item"><span class="score-label">Момент Х</span><span class="score-value">0</span></div>
+        </div>
+        <div class="total-score">Итог: 3,5</div>
+    </div>
+
+    <!-- Бой 9 -->
+    <div class="fight-card">
+        <div class="fight-title"><span class="fight-number">9 Бой</span> Царь Леонид против Аполлона!</div>
+        <div class="fight-image-placeholder">
+            <img src="images/fight9.jpg" alt="Бой 9: Леонид против Аполлона">
+        </div>
+        <p><strong>1.</strong> Леонид принарядился в камуфляж современного военного и выглядит никак грек, а как американец, в предыстории он крутой мужик, который сделал крутой поступок (ну все вы знаете про 300 спартанцев) (1)</p>
+        <p><strong>2.</strong> Аполлон мой любимый бог среди всех богов в истории, выглядит шикарно, в предыстории раскрывается, что он был незаурядным богом, который добился всего сам, а его фраза "Познай самого себя " прям очень хорошо раскрывает его, из способностей у него артефакт в виде нитей, из которых он может сделать буквально что захочет, от перчаток до лука (1)</p>
+        <p><strong>3.</strong> Валькирия с новым дизайном, снова! Её в битве показывали много, и она прям часто поддерживает Леонида,</p>
+        <p><strong>4.</strong> Бой здесь шикарный, инициатива переходит от человека к Богу и наоборот стремительно, вот вроде Леонид сейчас свалится от ран и бам, Аполлон лежит в своей крови</p>
+        <p><strong>5.</strong> (Момент Х не упомянут, штрафа нет)</p>
+        <div class="score-grid">
+            <div class="score-item"><span class="score-label">Человек</span><span class="score-value">1</span></div>
+            <div class="score-item"><span class="score-label">Бог</span><span class="score-value">1</span></div>
+            <div class="score-item"><span class="score-label">Валькирия</span><span class="score-value">1</span></div>
+            <div class="score-item"><span class="score-label">Битва</span><span class="score-value">1</span></div>
+            <div class="score-item"><span class="score-label">Момент Х</span><span class="score-value">0</span></div>
+        </div>
+        <div class="total-score">Итог: 4,0 (не указан в тексте, но вычислен по вашим оценкам)</div>
+    </div>
+
+    <hr>
+
+    <div class="footer-note">
+        <p style="font-weight: 600; margin-bottom: 0.2rem;">📌 Примечание автора:</p>
+        <p style="margin-bottom: 0;">Все оценки субъективны, я топлю за Богов, потому что они интереснее. Момент Х — это когда один удар «перебивает» другой (как в JoJo), что мне не нравится. В остальном — наслаждайтесь мангой! 🔥</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #5a4e42;">(на данный момент показано 12 боёв, но в этом обзоре разобраны первые 9)</p>
+    </div>
+
+    <div style="margin-top: 2rem; font-size: 0.8rem; color: #7a6e62; text-align: center; border-top: 1px solid #e0d6cc; padding-top: 1.2rem;">
+        ⚡ Сделано по мотивам прочтения «Повести о конце света» (Record of Ragnarok) · 2026
+    </div>
+
+</div>
+</body>
+</html>
